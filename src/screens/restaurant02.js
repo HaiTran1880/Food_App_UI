@@ -22,7 +22,9 @@ const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 const Restaurant2 = () => {
+    const navigation = useNavigation();
     const [isOpen, setIsOpen] = useState(false);
+    const [isOpen2, setIsOpen2] = useState(false);
     return (
         <ImageHeaderScrollView
             maxHeight={Platform.OS === 'ios' ? 352 : 250}
@@ -30,11 +32,17 @@ const Restaurant2 = () => {
             renderFixedForeground={() => {
                 return (
                     <View style={styles.headerBar}>
-                        <Image source={images.icon_white_arrow} />
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <Image source={images.icon_white_arrow} />
+                        </TouchableOpacity>
                         <View style={{ flexDirection: 'row' }}>
-                            <Image style={{ marginRight: 20 }}
-                                source={images.icon_share_white} />
-                            <Image source={images.icon_mark_white01} />
+                            <TouchableOpacity onPress={() => { }}>
+                                <Image style={{ marginRight: 20 }}
+                                    source={images.icon_share_white} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => { }}>
+                                <Image source={images.icon_mark_white01} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 )
@@ -143,64 +151,15 @@ const Restaurant2 = () => {
                                 <Text style={{ color: '#FF8C00', fontSize: 16, marginRight: 10 }}>View all </Text>
                             </View>
                             <View >
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 0.5, height: 50 }}>
+                                <TouchableOpacity onPress={() => setIsOpen2(!isOpen2)}
+                                    style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 50, borderBottomWidth: 0.5 }}>
                                     <Text style={{ fontSize: 15 }}>Popular items</Text>
                                     <View style={{ flexDirection: 'row', marginRight: 20, width: 25, justifyContent: 'space-between', alignItems: 'center' }}>
                                         <Text style={{ fontSize: 15, color: '#B8BBC6', }}>3</Text>
-                                        <Image source={images.icon_more_detail} />
-                                    </View>
-                                </View>
-                                <View style={{ backgroundColor: '#F7F8FA' }}>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10, borderBottomWidth: 0.5 }}>
-                                        <View>
-                                            <Text>
-                                                Special Gajananad Bhel
-                                            </Text>
-                                            <Text>
-                                                $ 7.20
-                                            </Text>
-                                        </View>
-                                        <Image source={images.icon_add} />
-                                    </View>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10, borderBottomWidth: 0.5 }}>
-                                        <View>
-                                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                                <Text>
-                                                    Cold Bournvita
-                                                </Text>
-                                                <Image style={{ marginLeft: 10 }}
-                                                    source={images.icon_bestsell} />
-                                            </View>
-                                            <Text>
-                                                $ 5.00
-                                            </Text>
-                                        </View>
-                                        <Image style={{ marginRight: 30 }}
-                                            source={images.icon_check} />
-                                    </View>
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10, borderBottomWidth: 0.5 }}>
-                                        <View>
-                                            <Text>
-                                                Butter Jam Maska Bun
-                                            </Text>
-                                            <Text>
-                                                $ 9.50
-                                            </Text>
-                                        </View>
-                                        <Image source={images.icon_add} />
-                                    </View>
-                                </View>
-                            </View>
-                            <View >
-                                <TouchableOpacity onPress={() => setIsOpen(!isOpen)}
-                                    style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 50, borderBottomWidth: 0.5 }}>
-                                    <Text style={{ fontSize: 15 }}>Salads</Text>
-                                    <View style={{ flexDirection: 'row', marginRight: 20, width: 25, justifyContent: 'space-between', alignItems: 'center' }}>
-                                        <Text style={{ fontSize: 15, color: '#B8BBC6', }}>3</Text>
-                                        <Image source={isOpen == true ? images.icon_down : images.icon_more_detail} />
+                                        <Image source={isOpen2 == true ? images.icon_down : images.icon_more_detail} />
                                     </View>
                                 </TouchableOpacity>
-                                {isOpen == true ?
+                                {isOpen2 == true ?
                                     <View style={{ backgroundColor: '#F7F8FA' }}>
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10 }}>
                                             <View>
@@ -211,7 +170,9 @@ const Restaurant2 = () => {
                                                     $ 7.20
                                                 </Text>
                                             </View>
-                                            <Image source={images.icon_add} />
+                                            <TouchableOpacity onPress={() => { }}>
+                                                <Image source={images.icon_add} />
+                                            </TouchableOpacity>
                                         </View>
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10, borderTopWidth: 0.5, borderBottomWidth: 0.5 }}>
                                             <View>
@@ -238,7 +199,65 @@ const Restaurant2 = () => {
                                                     $ 9.50
                                                 </Text>
                                             </View>
-                                            <Image source={images.icon_add} />
+                                            <TouchableOpacity onPress={() => { }}>
+                                                <Image source={images.icon_add} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                    : <View></View>}
+                            </View>
+                            <View >
+                                <TouchableOpacity onPress={() => setIsOpen(!isOpen)}
+                                    style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 50, borderBottomWidth: 0.5 }}>
+                                    <Text style={{ fontSize: 15 }}>Salads</Text>
+                                    <View style={{ flexDirection: 'row', marginRight: 20, width: 25, justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <Text style={{ fontSize: 15, color: '#B8BBC6', }}>3</Text>
+                                        <Image source={isOpen == true ? images.icon_down : images.icon_more_detail} />
+                                    </View>
+                                </TouchableOpacity>
+                                {isOpen == true ?
+                                    <View style={{ backgroundColor: '#F7F8FA' }}>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10 }}>
+                                            <View>
+                                                <Text>
+                                                    Special Gajananad Bhel
+                                                </Text>
+                                                <Text>
+                                                    $ 7.20
+                                                </Text>
+                                            </View>
+                                            <TouchableOpacity onPress={() => { }}>
+                                                <Image source={images.icon_add} />
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10, borderTopWidth: 0.5, borderBottomWidth: 0.5 }}>
+                                            <View>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                    <Text>
+                                                        Cold Bournvita
+                                                    </Text>
+                                                    <Image style={{ marginLeft: 10 }}
+                                                        source={images.icon_bestsell} />
+                                                </View>
+                                                <Text>
+                                                    $ 5.00
+                                                </Text>
+                                            </View>
+                                            <Image style={{ marginRight: 30 }}
+                                                source={images.icon_check} />
+                                        </View>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10 }}>
+                                            <View>
+                                                <Text>
+                                                    Butter Jam Maska Bun
+                                                </Text>
+                                                <Text>
+                                                    $ 9.50
+                                                </Text>
+                                            </View>
+                                            <TouchableOpacity onPress={() => { }}>
+                                                <Image source={images.icon_add} />
+                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                     : <View></View>}
@@ -277,7 +296,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-
     },
     bottomBar: {
         flex: 1,

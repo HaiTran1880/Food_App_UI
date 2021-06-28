@@ -48,6 +48,7 @@ function MyStack() {
             <Stack.Screen name={ScreenName.VERIFY} component={Verify} />
             <Stack.Screen name={ScreenName.WELCOME} component={Welcome} />
             <Stack.Screen name={ScreenName.RESTAURANT} component={Restaurant1} />
+            <Stack.Screen name={ScreenName.RESTAURANT2} component={Restaurant2} />
             <Stack.Screen name={ScreenName.PAY} component={Pay} />
         </Stack.Navigator>
     )

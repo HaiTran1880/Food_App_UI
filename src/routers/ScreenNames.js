@@ -14,3 +14,4 @@ export const MYODER = 'MYORDERSCREEN';
 export const TABBAR = 'TABBAR';
 export const RESTAURANT = 'RESTAURANT';
 export const PAY = 'PAY';
+export const RESTAURANT2 = 'RESTAURANT2';

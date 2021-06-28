@@ -78,8 +78,10 @@ const ItemPopular = (props) => {
 // Item Collections by Fozzi
 const ItemCollection = (props) => {
     const { id, name, description, image, rate, countRate } = props.item;
+    const { navigation } = props;
     return (
-        <TouchableOpacity style={styles.itemCollection}>
+        <TouchableOpacity onPress={() => navigation.navigate('RESTAURANT2')}
+            style={styles.itemCollection}>
             <Image source={image} style={styles.imageCollection} />
             <View style={styles.textCollection}>
                 <Text style={{ fontSize: 17, fontWeight: '600' }}>{name}</Text>
@@ -200,7 +202,7 @@ const Home = () => {
                             horizontal={true}
                             data={fakeData.dataCollectionsByFozzi}
                             keyExtractor={(item) => item.id}
-                            renderItem={({ item }) => <ItemCollection item={item} />}
+                            renderItem={({ item }) => <ItemCollection item={item} navigation={navigation} />}
                         />
                     </View>
                 </View>
