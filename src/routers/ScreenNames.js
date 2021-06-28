@@ -1,0 +1,16 @@
+export const LOGINSCREEN = 'LOGINSCREEN';
+export const HOMESCREEN = 'HOMESCREEN';
+export const OTP = 'OTPSCREEN';
+export const WELCOME = 'WELCOMESCREEM';
+export const VERIFY = 'VERIFYSCREEN';
+export const PROFILE = 'PROFILESCREEN';
+export const PLACES = 'PLACESSCREEN';
+export const COLLECTIONS = 'COLLECTIONSSCREEN';
+export const CREATEACOUNT = 'CREATEACOUNSCREEN';
+export const EIDTPROFILE = 'EDITPROFILESCREEN';
+export const FAVOURITE = 'FAVOURITESRCEEN';
+export const FORGOTPASS = 'FORGOTPASSWORKSCREEN';
+export const MYODER = 'MYORDERSCREEN';
+export const TABBAR = 'TABBAR';
+export const RESTAURANT = 'RESTAURANT';
+export const PAY = 'PAY';
