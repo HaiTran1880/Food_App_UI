@@ -54,73 +54,75 @@ const Pay = () => {
         setModalVisible(false);
     }
     return (
-        <View style={modalVisible ? [styles.container, styles.bg] : styles.container}>
-            <StatusBar
-                barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
-            />
-            <ModalPopup isVisible={modalVisible} onClose={onClose} />
-            <View style={styles.header}>
-                <View style={styles.containHeader}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Image source={images.icon_back} />
-                    </TouchableOpacity>
-                    <Text style={{ fontSize: 17, fontWeight: '600' }}>Checkout</Text>
-                    <TouchableOpacity onPress={() => { }}
-                    >
-                        <Text style={{ fontSize: 17, color: '#FF8C00' }}>      </Text>
-                    </TouchableOpacity>
+        <>
+            <View style={modalVisible ? [styles.container, styles.bg] : styles.container}>
+                <StatusBar
+                    barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
+                />
+                <ModalPopup isVisible={modalVisible} onClose={onClose} />
+                <View style={styles.header}>
+                    <View style={styles.containHeader}>
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <Image source={images.icon_back} />
+                        </TouchableOpacity>
+                        <Text style={{ fontSize: 17, fontWeight: '600' }}>Checkout</Text>
+                        <TouchableOpacity onPress={() => { }}
+                        >
+                            <Text style={{ fontSize: 17, color: '#FF8C00' }}>      </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-            <View style={{ flex: 9 }}>
-                <View style={styles.edit}>
-                    <View style={styles.containItem}>
-                        <View style={{ flex: (Platform.OS === 'ios' ? 3 : 2.5), padding: 10 }}>
-                            <View>
-                                <Text>DELIVERY ADDRESS</Text>
-                                <View style={styles.row1}>
-                                    <View>
-                                        <Text style={{ color: '#FF8C00', fontSize: 13, fontWeight: '600' }}>HOME ADDRESS</Text>
-                                        <Text style={{ fontSize: 17 }}>928 Lehner Junction Apt. 047</Text>
+                <View style={{ flex: 9 }}>
+                    <View style={styles.edit}>
+                        <View style={styles.containItem}>
+                            <View style={{ flex: (Platform.OS === 'ios' ? 3 : 2.5), padding: 10 }}>
+                                <View>
+                                    <Text>DELIVERY ADDRESS</Text>
+                                    <View style={styles.row1}>
+                                        <View>
+                                            <Text style={{ color: '#FF8C00', fontSize: 13, fontWeight: '600' }}>HOME ADDRESS</Text>
+                                            <Text style={{ fontSize: 17 }}>928 Lehner Junction Apt. 047</Text>
+                                        </View>
+                                        <Image source={images.icon_check} />
                                     </View>
-                                    <Image source={images.icon_check} />
+                                </View>
+                                <View style={{ marginTop: (Platform.OS === 'ios' ? 30 : 15) }}>
+                                    <Text style={{ fontSize: 13 }}>PAYMENT METHOD</Text>
+                                    <View style={styles.row2}>
+                                        <Image source={images.icon_visa} />
+                                        <Text style={{ fontSize: 17 }}>    **** *** **** 5967</Text>
+                                    </View>
+                                    <View style={styles.row1}>
+                                        <Image source={images.icon_paya} />
+                                        <Text style={{ fontSize: 17 }}> hai_euro@gmail.com</Text>
+                                        <Image source={images.icon_check} />
+                                    </View>
+                                    <View style={styles.row2}>
+                                        <Image source={images.icon_mastercard} />
+                                        <Text style={{ fontSize: 17 }}>    **** *** **** 5967</Text>
+                                    </View>
                                 </View>
                             </View>
-                            <View style={{ marginTop: (Platform.OS === 'ios' ? 30 : 15) }}>
-                                <Text style={{ fontSize: 13 }}>PAYMENT METHOD</Text>
-                                <View style={styles.row2}>
-                                    <Image source={images.icon_visa} />
-                                    <Text style={{ fontSize: 17 }}>    **** *** **** 5967</Text>
-                                </View>
-                                <View style={styles.row1}>
-                                    <Image source={images.icon_paya} />
-                                    <Text style={{ fontSize: 17 }}> hai_euro@gmail.com</Text>
-                                    <Image source={images.icon_check} />
-                                </View>
-                                <View style={styles.row2}>
-                                    <Image source={images.icon_mastercard} />
-                                    <Text style={{ fontSize: 17 }}>    **** *** **** 5967</Text>
-                                </View>
+                            <View style={{ flex: (Platform.OS === 'ios' ? 0.8 : 0.4), justifyContent: 'flex-end', alignItems: 'center' }}>
+                                <TouchableOpacity onPress={() => setModalVisible(true)}
+                                    style={styles.btnPay}>
+                                    <Text style={{ color: '#FFF', fontSize: 15, fontWeight: '600' }}>Payment</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
-                        <View style={{ flex: (Platform.OS === 'ios' ? 0.8 : 0.4), justifyContent: 'flex-end', alignItems: 'center' }}>
-                            <TouchableOpacity onPress={() => setModalVisible(true)}
-                                style={styles.btnPay}>
-                                <Text style={{ color: '#FFF', fontSize: 15, fontWeight: '600' }}>Payment</Text>
-                            </TouchableOpacity>
+                    </View>
+                    <View style={{ flex: 1.2, justifyContent: 'flex-start', alignItems: 'center' }}>
+                        <View style={{ alignItems: 'center', marginTop: 40 }}>
+                            <Image style={{ marginBottom: 10 }}
+                                source={images.vantay} />
+                            <Text style={{ fontSize: 17 }}>
+                                Pay with Touch ID
+                            </Text>
                         </View>
                     </View>
                 </View>
-                <View style={{ flex: 1.2, justifyContent: 'flex-start', alignItems: 'center' }}>
-                    <View style={{ alignItems: 'center', marginTop: 40 }}>
-                        <Image style={{ marginBottom: 10 }}
-                            source={images.vantay} />
-                        <Text style={{ fontSize: 17 }}>
-                            Pay with Touch ID
-                        </Text>
-                    </View>
-                </View>
-            </View>
-        </View >
+            </View >
+        </>
     )
 }
 const styles = StyleSheet.create({

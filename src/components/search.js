@@ -9,11 +9,15 @@ import {
     Dimensions,
 } from 'react-native';
 import R from '../assests/R';
+import { connect } from 'react-redux';
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 const Search = (props) => {
-    const { onSearch } = props;
+    const { onSearch, isOpen } = props;
+    function openFilter() {
+        console.log(isOpen.isOpen);
+    }
     return (
         <View style={styles.container}>
             <View style={styles.searchBar}>
@@ -28,7 +32,7 @@ const Search = (props) => {
                     placeholder='Search'
                 />
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={openFilter}>
                 <Image source={R.images.icon_filter} />
             </TouchableOpacity>
         </View>
@@ -72,4 +76,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFF'
     }
 })
-export default Search;
+const mapStateToProps = (state) => {
+    return {
+        isOpen: state.openModal,
+    };
+};
+export default connect(mapStateToProps, {})(Search);

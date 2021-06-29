@@ -1,16 +1,15 @@
 import React from 'react';
 import All from './src/routers/StackNavigation';
-import ModalFilter from './src/components/modalFilter';
-import ModalSearch from './src/components/modalSearch';
-import Restaurant1 from './src/screens/restaurant_1';
-import Restaurant2 from './src/screens/restaurant02';
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import { ADDFOOD } from './src/actions/actionTypes';
+import rootReducer from './src/reducers/index'
+const store = createStore(rootReducer)
 const App = () => {
   return (
-    //<Restaurant2 />
-    <All />
-    //<ModalFilter />
-    //<ModalSearch />
+    <Provider store={store}>
+      <All />
+    </Provider>
   )
 }
-
 export default App;

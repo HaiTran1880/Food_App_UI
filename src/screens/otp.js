@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
     View,
@@ -14,13 +15,16 @@ const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
 const OTP = () => {
-
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Image source={R.images.icon_back}
-                    style={{ width: 20, height: 20 }}
-                />
+                <TouchableOpacity onPress={() => navigation.goBack()}
+                >
+                    <Image source={R.images.icon_back}
+                        style={{ width: 20, height: 20 }}
+                    />
+                </TouchableOpacity>
             </View>
             <View style={styles.content}>
                 <View style={styles.text}>

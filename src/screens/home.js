@@ -17,7 +17,8 @@ import { fakeData } from '../fake data/fakeData';
 import { useNavigation } from '@react-navigation/native';
 import ModalSearch from '../components/modalSearch';
 import ModalFilter from '../components/modalFilter';
-import { use } from 'jscodeshift';
+
+
 // Item Discover new place
 const Item = (props) => {
     const { id, name, description, image, rate, countRate } = props.item
@@ -115,9 +116,12 @@ const Home = () => {
     const onClose = () => {
         setModalVisible(false);
     }
+    const openFilter = () => {
+
+    }
     return (
         <View style={styles.container}>
-            <Search onSearch={onSearch} />
+            <Search onSearch={onSearch} openFilter={openFilter} />
             <StatusBar
                 barStyle='dark-content'
                 hidden={false}
@@ -336,7 +340,42 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-    }
+    },
     //End_Collection by Fozzi
+
+    //Modal
+    containerModal: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    row: {
+        height: 50,
+        borderBottomWidth: 0.5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    section: {
+        color: '#B8BBC6',
+        fontSize: 15,
+        fontWeight: '600',
+        marginTop: 30
+    },
+    row2: {
+        borderBottomWidth: 0.5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: 50,
+        justifyContent: 'space-between'
+    },
+    itemChose: {
+        paddingVertical: 5,
+        paddingHorizontal: 8,
+        borderRadius: 20,
+        borderWidth: 0.5,
+        borderColor: 'gray',
+        marginRight: 20
+    }
 })
 export default Home;

@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     },
     header: {
         marginTop: (Platform.OS === 'ios' ? 70 : 30),
-        marginHorizontal: 20
+        marginHorizontal: 20,
     },
     touch: {
 

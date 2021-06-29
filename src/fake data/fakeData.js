@@ -4,6 +4,7 @@ import { dataPopularThisWeek } from "./dataPopularThisWeek";
 import { dataCollectionsByFozzi } from "./dataCollectionsByFozzi";
 import { dataListUser } from "./dataListUser";
 import { dataListCollections } from "./dataListCollections";
+import { listFoodOder } from "./listFoodOder";
 export const fakeData = {
     dataDiscoverNewPlaces,
     dataTopCategories,
@@ -11,4 +12,5 @@ export const fakeData = {
     dataCollectionsByFozzi,
     dataListUser,
     dataListCollections,
+    listFoodOder,
 }

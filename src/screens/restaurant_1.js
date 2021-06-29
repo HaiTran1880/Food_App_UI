@@ -13,20 +13,35 @@ import {
     ScrollView,
 } from 'react-native';
 import R from '../assests/R';
+import { connect } from 'react-redux';
 import images from '../assests/images';
 import { SliderBox } from "react-native-image-slider-box";
 import { useNavigation } from '@react-navigation/native';
+import { fakeData } from '../fake data/fakeData';
+import { addFood } from '../actions/oderFood';
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 
-const Restaurant1 = () => {
+const Restaurant1 = (props) => {
     const navigation = useNavigation();
     const os = Platform.OS;
+    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen2, setIsOpen2] = useState(false);
     const [image, setImages] = useState([
         R.images.banner,
         R.images.banner1,
         R.images.banner3,
     ])
+    const checkOdered = (id) => {
+        if (props.myOder.myOder.find(x => x.id === id)) {
+            return true;
+        }
+        else return false;
+    }
+    const handleAddFood = (index) => {
+        let food = fakeData.listFoodOder.find(x => x.id === index)
+        props.addFood(food)
+    }
     return (
         <View style={styles.container}>
             {os === 'ios' ? <StatusBar
@@ -131,6 +146,90 @@ const Restaurant1 = () => {
                             <Image style={{ marginLeft: 10 }} source={images.pt2} />
                             <Image style={{ marginLeft: 10 }} source={images.pt3} />
                         </ScrollView>
+                        <View style={{ flexDirection: 'row', marginTop: 30, marginBottom: 10, justifyContent: 'space-between', alignContent: 'center' }}>
+                            <Text style={{ marginBottom: 15, fontWeight: '700', fontSize: 20 }}>Full menu</Text>
+                            <Text style={{ color: '#FF8C00', fontSize: 16, marginRight: 10 }}>View all </Text>
+                        </View>
+                        <View >
+                            <TouchableOpacity onPress={() => setIsOpen2(!isOpen2)}
+                                style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 50, borderBottomWidth: 0.5 }}>
+                                <Text style={{ fontSize: 15 }}>Popular items</Text>
+                                <View style={{ flexDirection: 'row', marginRight: 20, width: 25, justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 15, color: '#B8BBC6', }}>{fakeData.listFoodOder.length}</Text>
+                                    <Image source={isOpen2 == true ? images.icon_down : images.icon_more_detail} />
+                                </View>
+                            </TouchableOpacity>
+                            {isOpen2 == true ?
+                                <View style={{ backgroundColor: '#F7F8FA' }}>
+                                    {fakeData.listFoodOder.map((item) =>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10, borderTopWidth: 0.5, borderBottomWidth: 0.5 }}>
+                                            <View>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                    <Text>
+                                                        {item.name}
+                                                    </Text>
+                                                    {item.bestsell ? <Image style={{ marginLeft: 20 }}
+                                                        source={images.icon_bestsell} /> : null}
+                                                </View>
+                                                <Text>
+                                                    $ {item.cost}
+                                                </Text>
+                                            </View>
+                                            {checkOdered(item.id) ?
+                                                <View>
+                                                    <Image style={{ marginRight: 20 }}
+                                                        source={images.icon_check} />
+                                                </View>
+                                                :
+                                                <TouchableOpacity onPress={() => handleAddFood(item.id)}>
+                                                    <Image source={images.icon_add} />
+                                                </TouchableOpacity>
+                                            }
+                                        </View>)}
+                                </View>
+                                : <View></View>}
+                        </View>
+                        <View >
+                            <TouchableOpacity onPress={() => setIsOpen(!isOpen)}
+                                style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 50, borderBottomWidth: 0.5 }}>
+                                <Text style={{ fontSize: 15 }}>Salads</Text>
+                                <View style={{ flexDirection: 'row', marginRight: 20, width: 25, justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 15, color: '#B8BBC6', }}>{fakeData.listFoodOder.length}</Text>
+                                    <Image source={isOpen == true ? images.icon_down : images.icon_more_detail} />
+                                </View>
+                            </TouchableOpacity>
+                            {isOpen == true ?
+                                <View style={{ backgroundColor: '#F7F8FA', marginBottom: 20 }}>
+                                    {fakeData.listFoodOder.map((item) =>
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10, borderTopWidth: 0.5, borderBottomWidth: 0.5 }}>
+                                            <View>
+                                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                                    <Text>
+                                                        {item.name}
+                                                    </Text>
+                                                    {item.bestsell ? <Image style={{ marginLeft: 50 }}
+                                                        source={images.icon_bestsell} /> : null}
+                                                </View>
+                                                <Text>
+                                                    $ {item.cost}
+                                                </Text>
+                                            </View>
+                                            <TouchableOpacity onPress={() => handleAddFood(item.id)}>
+                                                <Image source={images.icon_add} />
+                                            </TouchableOpacity>
+                                        </View>)}
+                                </View>
+                                : <View></View>}
+                        </View>
+                        {/* <TouchableOpacity style={{ backgroundColor: '#FF8C00', height: 50, flexDirection: 'row', borderRadius: 10, marginRight: 10, marginTop: 20, marginBottom: 30 }}>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}></View>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 17, color: '#FFF', fontWeight: '600' }}>Add to Order</Text>
+                            </View>
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ fontSize: 17, color: '#FFF', fontWeight: '600' }}>$90.00</Text>
+                            </View>
+                        </TouchableOpacity> */}
                     </View>
                 </ScrollView>
 
@@ -163,4 +262,9 @@ const styles = StyleSheet.create({
         marginTop: 0,
     }
 })
-export default Restaurant1;
+const mapStateToProps = (state) => {
+    return {
+        myOder: state.oderFood,
+    };
+};
+export default connect(mapStateToProps, { addFood })(Restaurant1);

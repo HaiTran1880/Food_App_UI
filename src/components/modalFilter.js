@@ -5,6 +5,7 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import images from '../assests/images';
 import { getWidth, getHeight } from '../config/functions';
 import Slider from '@react-native-community/slider';
+import { connect } from 'react-redux';
 const List = [
     {
         id: '0',
@@ -60,6 +61,10 @@ const Item = (props) => {
 }
 const number = getHeight() * 5 / 10;
 function ModalFilter(props) {
+    const closeFilter = () => {
+        sheetRef.current.snapTo(2)
+    }
+
     const renderContent = () => (
         <View
             style={{
@@ -176,16 +181,12 @@ function ModalFilter(props) {
                 }}>
                 <TouchableOpacity><Text style={{ fontSize: 17 }}>Reset</Text></TouchableOpacity>
                 <Text style={{ fontSize: 17, fontWeight: '600' }}>Filters</Text>
-                <TouchableOpacity onPress={() => sheetRef.current.snapTo(2)}
+                <TouchableOpacity onPress={closeFilter}
                 ><Text style={{ fontSize: 17, color: '#FF8C00' }}>Done</Text></TouchableOpacity>
             </View>
         </View>
     );
-
     const sheetRef = React.useRef(null);
-    const [bottomOpen, setBottomOpen] = useState(true);
-    //const{onClick}=props;
-
     return (
         <>
             <View
@@ -200,7 +201,7 @@ function ModalFilter(props) {
             <BottomSheet
                 style={{ flex: 1 }}
                 ref={sheetRef}
-                snapPoints={[number, getHeight() * 9 / 10, 0]}
+                snapPoints={[0, number, getHeight() * 9 / 10,]}
                 borderRadius={10}
                 renderHeader={renderHeader}
                 renderContent={renderContent}
@@ -243,5 +244,9 @@ const styles = StyleSheet.create({
         marginRight: 20
     }
 })
-
-export default ModalFilter;
+const mapStateToProps = (state) => {
+    return {
+        isOpen: state.openModal,
+    };
+};
+export default connect(mapStateToProps, {})(ModalFilter);

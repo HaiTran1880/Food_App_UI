@@ -60,6 +60,7 @@ const images = {
     icon_visa: require('./image/icon_visa.png'),
     icon_mastercard: require('./image/icon_mastercard.png'),
     icon_check_pay: require('./image/icon_check_pay.png'),
+    icon_delte_food: require('./image/icon_delete_food.png'),
 
     food1: require('./image/food1.png'),
     food2: require('./image/food2.png'),
