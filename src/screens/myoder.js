@@ -142,7 +142,7 @@ const MyOder = (props) => {
                                 <View>
                                     <View style={styles.row}>
                                         <Text style={styles.section}>Subtotal</Text>
-                                        <Text style={styles.value}>$ {totalCost.toPrecision(3)}</Text>
+                                        <Text style={styles.value}>$ {totalCost}</Text>
                                     </View>
                                 </View>
                                 <View>

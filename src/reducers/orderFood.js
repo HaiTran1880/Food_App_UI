@@ -40,7 +40,6 @@ var oderFood = (state = initialState, action) => {
         case DELETEFOOD: {
             let index = state.myOder.findIndex(p => p.id !== action.id)
             let arr = state.count.splice(index);
-            console.log(arr);
             return {
                 myOder: state.myOder.filter(p => p.id !== action.id),
                 count: arr
