@@ -44,8 +44,11 @@ const Item = (props) => {
 // Item Top categories
 const ItemCate = (props) => {
     const { id, name, places, image } = props.item;
+    const { navigation } = props
     return (
-        <TouchableOpacity style={styles.itemCate}>
+        <TouchableOpacity
+            onPress={() => navigation.navigate('RESTAURANT')}
+            style={styles.itemCate}>
             <Image source={image} style={styles.imageCate} />
             <Text style={{ fontSize: 17, fontWeight: '600' }}>{name}</Text>
             <Text style={{ color: R.colors.gray, fontSize: 13 }}>{places}</Text>
@@ -56,8 +59,10 @@ const ItemCate = (props) => {
 // Item Popular this week
 const ItemPopular = (props) => {
     const { id, name, description, image, rate, countRate } = props.item;
+    const { navigation } = props;
     return (
-        <TouchableOpacity style={styles.itemPopular}>
+        <TouchableOpacity onPress={() => navigation.navigate('RESTAURANT')}
+            style={styles.itemPopular}>
             <Image source={image} style={styles.imagePopular} />
             <View style={styles.textPopular}>
                 <Text style={{ fontSize: 17, fontWeight: '600' }}>{name}</Text>
@@ -149,7 +154,8 @@ const Home = () => {
                 <View style={styles.Categories}>
                     <View style={styles.headerTopCate}>
                         <Text style={{ fontSize: 20, fontWeight: '600' }}>Top categories</Text>
-                        <TouchableOpacity style={styles.showAll}>
+                        <TouchableOpacity onPress={() => navigation.navigate('COLLECTIONSSCREEN')}
+                            style={styles.showAll}>
                             <Text style={{ fontSize: 15, marginRight: 5 }}>
                                 Show all
                             </Text>
@@ -161,7 +167,7 @@ const Home = () => {
                         showsHorizontalScrollIndicator={false}
                         data={fakeData.dataTopCategories}
                         keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => <ItemCate item={item} />}
+                        renderItem={({ item }) => <ItemCate item={item} navigation={navigation} />}
                     />
                 </View>
                 {/* End_Top categories */}
@@ -171,7 +177,8 @@ const Home = () => {
                     <View style={styles.Popular}>
                         <View style={styles.headerTopCate}>
                             <Text style={{ fontSize: 20, fontWeight: '600' }}>Popular this week</Text>
-                            <TouchableOpacity style={styles.showAll}>
+                            <TouchableOpacity onPress={() => navigation.navigate('COLLECTIONSSCREEN')}
+                                style={styles.showAll}>
                                 <Text style={{ fontSize: 15, marginRight: 5 }}>
                                     Show all
                                 </Text>
@@ -182,7 +189,7 @@ const Home = () => {
                             showsHorizontalScrollIndicator={false}
                             data={fakeData.dataPopularThisWeek}
                             keyExtractor={(item) => item.id}
-                            renderItem={({ item }) => <ItemPopular item={item} />}
+                            renderItem={({ item }) => <ItemPopular item={item} navigation={navigation} />}
                         />
                     </View>
                 </View>

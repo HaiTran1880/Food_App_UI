@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -13,19 +13,28 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import images from '../assests/images';
-import { deleteFood } from '../actions/oderFood';
+import { deleteFood, addOne, minusOne } from '../actions/oderFood';
 import R from '../assests/R';
+import { set } from 'react-native-reanimated';
 const WIDTH = Dimensions.get('window').width;
 const HEIGHT = Dimensions.get('window').height;
 const MyOder = (props) => {
     const navigation = useNavigation();
     const { myOder, } = props.myOder;
-    let total_cost;
-    if (myOder.length != 0) {
-        total_cost = myOder.reduce((cost, item, index, arrays) => {
-            return cost += item.cost
-        }, 0)
+    const { count, } = props.count;
+    const [totalCost, setTotalCost] = useState()
+    let leng = myOder.length;
+    const caculatMoney = () => {
+        let cost = 0;
+        let i = 0;
+        for (i; i < leng; i++) {
+            cost += myOder[i].cost * count[i];
+        }
+        setTotalCost(cost)
     }
+    useEffect(() => {
+        caculatMoney();
+    }, [props.count]);
     return (
         <View style={styles.container}>
             <StatusBar
@@ -78,20 +87,39 @@ const MyOder = (props) => {
                                         </View>
                                     </View>
                                 </View>
-                                <View style={{ flex: 5 }}>
+                                <View style={{ flex: 4 }}>
                                     <ScrollView
                                         showsVerticalScrollIndicator={false}
+                                        style={{ flex: 1 }}
                                     >
-                                        {myOder.map(item =>
+                                        {myOder.map((item, index) =>
                                             <View style={[styles.topRow2, styles.borderRow]}>
-                                                <Text style={styles.text1}>{item.name}</Text>
-                                                <View style={styles.row1}>
-                                                    <Text style={styles.text2}>{item.decription}</Text>
-                                                    <View style={{ flexDirection: 'row', width: 70, justifyContent: 'space-between', alignItems: 'center' }}>
-                                                        <Text style={styles.text2}>$ {item.cost}</Text>
-                                                        <TouchableOpacity onPress={() => props.deleteFood(item.id)}>
-                                                            <Image source={images.icon_delte_food} />
+                                                <View style={{ flexDirection: 'row', height: '100%' }}>
+                                                    <View style={{ flex: 3, justifyContent: 'center', }}>
+                                                        <Text style={styles.text1}>{item.name}</Text>
+                                                        <Text style={styles.text2}>{item.decription}</Text>
+                                                    </View>
+                                                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-between', height: '100%' }}>
+                                                        <TouchableOpacity onPress={() => props.addOne(index)}
+                                                        >
+                                                            <Image style={{ width: 20, height: 20 }}
+                                                                source={images.icon_asen} />
                                                         </TouchableOpacity>
+                                                        <Text style={styles.text1}>{count[index]}</Text>
+                                                        <TouchableOpacity onPress={() => props.minusOne(index)}
+                                                        >
+                                                            <Image style={{ width: 20, height: 20 }}
+                                                                source={images.icon_descen} />
+                                                        </TouchableOpacity>
+                                                    </View>
+                                                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                                        <View style={{ flexDirection: 'row', width: 70, justifyContent: 'space-between', alignItems: 'center' }}>
+                                                            <Text style={styles.text2}>$ {((item.cost * count[index]).toPrecision(3))}</Text>
+                                                            <TouchableOpacity onPress={() => props.deleteFood(item.id)}>
+                                                                <Image source={images.icon_delte_food} />
+                                                            </TouchableOpacity>
+
+                                                        </View>
                                                     </View>
                                                 </View>
                                             </View>)}
@@ -106,6 +134,7 @@ const MyOder = (props) => {
                                 </View>
                             </View>
                             <View style={{ flex: 2 }}>
+
                             </View>
                         </View>
                         <View style={styles.bottom}>
@@ -113,7 +142,7 @@ const MyOder = (props) => {
                                 <View>
                                     <View style={styles.row}>
                                         <Text style={styles.section}>Subtotal</Text>
-                                        <Text style={styles.value}>$ {total_cost}</Text>
+                                        <Text style={styles.value}>$ {totalCost.toPrecision(3)}</Text>
                                     </View>
                                 </View>
                                 <View>
@@ -136,7 +165,7 @@ const MyOder = (props) => {
                                     <Text style={{ color: '#FFF', fontSize: 17, fontWeight: '600' }}>Continue</Text>
                                 </View>
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ color: '#FFF', fontSize: 17, marginRight: 30, fontWeight: '600' }}>$ {total_cost + 5}</Text>
+                                    <Text style={{ color: '#FFF', fontSize: 17, marginRight: 30, fontWeight: '600' }}>$ {(totalCost + 5.00).toPrecision(3)}</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -213,20 +242,18 @@ const styles = StyleSheet.create({
     },
     topRow2: {
         marginHorizontal: 20,
-        paddingVertical: 10,
+        height: 60,
     },
     bgRow: {
         flex: 1.3,
         width: '100%',
+        padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: 'gray',
         justifyContent: 'center',
         backgroundColor: '#FFF'
     },
     borderRow: {
-        flex: 1,
-        width: 324,
-        paddingRight: 20,
         borderBottomWidth: 1,
         backgroundColor: '#FFF',
         borderBottomColor: 'gray',
@@ -275,6 +302,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         myOder: state.oderFood,
+        count: state.oderFood,
     };
 };
-export default connect(mapStateToProps, { deleteFood })(MyOder);
+export default connect(mapStateToProps, { deleteFood, addOne, minusOne })(MyOder);

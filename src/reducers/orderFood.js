@@ -1,4 +1,4 @@
-import { ADDFOOD, DELETEFOOD, EDITFOOD } from './../actions/actionTypes';
+import { ADDFOOD, DELETEFOOD, EDITFOOD, ADDONE, MINUSONE } from './../actions/actionTypes';
 
 const initialState = {
     myOder: [
@@ -8,6 +8,7 @@ const initialState = {
             decription: 'Mixed vegetables, Chicken Egg',
             cost: 17.20,
             bestsell: false,
+
         },
         {
             id: '2',
@@ -23,7 +24,8 @@ const initialState = {
             cost: 29.50,
             bestsell: false
         }
-    ]
+    ],
+    count: [1, 1, 1],
 };
 
 
@@ -32,13 +34,43 @@ var oderFood = (state = initialState, action) => {
         case ADDFOOD: {
             return {
                 myOder: [...state.myOder, action.food],
+                count: [...state.count, 1],
             };
         }
         case DELETEFOOD: {
-            return { myOder: state.myOder.filter(p => p.id !== action.id) };
+            let index = state.myOder.findIndex(p => p.id !== action.id)
+            let arr = state.count.splice(index);
+            console.log(arr);
+            return {
+                myOder: state.myOder.filter(p => p.id !== action.id),
+                count: arr
+            };
         }
         case EDITFOOD: {
             return state;
+        }
+        case ADDONE: {
+            let i = action.index;
+            let a = state.count[i] + 1;
+            state.count[i] = a;
+            let arr = state.count;
+            return {
+                myOder: [...state.myOder],
+                count: arr,
+            };
+        }
+        case MINUSONE: {
+            let i = action.index;
+            let a = 1;
+            if (state.count[i] > 2) {
+                a = state.count[i] - 1;
+            }
+            state.count[i] = a;
+            let arr = state.count;
+            return {
+                myOder: [...state.myOder],
+                count: arr
+            };
         }
         default:
             return state;

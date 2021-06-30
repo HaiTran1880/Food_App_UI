@@ -199,7 +199,7 @@ const Restaurant1 = (props) => {
                                 </View>
                             </TouchableOpacity>
                             {isOpen == true ?
-                                <View style={{ backgroundColor: '#F7F8FA', marginBottom: 20 }}>
+                                <View style={{ backgroundColor: '#F7F8FA' }}>
                                     {fakeData.listFoodOder.map((item) =>
                                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10, borderTopWidth: 0.5, borderBottomWidth: 0.5 }}>
                                             <View>
@@ -207,16 +207,23 @@ const Restaurant1 = (props) => {
                                                     <Text>
                                                         {item.name}
                                                     </Text>
-                                                    {item.bestsell ? <Image style={{ marginLeft: 50 }}
+                                                    {item.bestsell ? <Image style={{ marginLeft: 20 }}
                                                         source={images.icon_bestsell} /> : null}
                                                 </View>
                                                 <Text>
                                                     $ {item.cost}
                                                 </Text>
                                             </View>
-                                            <TouchableOpacity onPress={() => handleAddFood(item.id)}>
-                                                <Image source={images.icon_add} />
-                                            </TouchableOpacity>
+                                            {checkOdered(item.id) ?
+                                                <View>
+                                                    <Image style={{ marginRight: 20 }}
+                                                        source={images.icon_check} />
+                                                </View>
+                                                :
+                                                <TouchableOpacity onPress={() => handleAddFood(item.id)}>
+                                                    <Image source={images.icon_add} />
+                                                </TouchableOpacity>
+                                            }
                                         </View>)}
                                 </View>
                                 : <View></View>}

@@ -1,4 +1,4 @@
-import { ADDFOOD, DELETEFOOD, EDITFOOD } from './actionTypes';
+import { ADDFOOD, DELETEFOOD, EDITFOOD, ADDONE, MINUSONE } from './actionTypes';
 
 export const addFood = (food) => {
     return {
@@ -17,4 +17,16 @@ export const editFood = (id) => {
         type: EDITFOOD,
         id,
     };
-};
+}
+export const addOne = (index) => {
+    return {
+        type: ADDONE,
+        index
+    };
+}
+export const minusOne = (index) => {
+    return {
+        type: MINUSONE,
+        index
+    };
+}
